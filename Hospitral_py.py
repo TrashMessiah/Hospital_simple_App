@@ -1,4 +1,6 @@
+
 import os
+import pickle
 
 class user:
     name = ""
@@ -33,7 +35,7 @@ class admin(user):
         new_user.user_type=_user_type
 
         global active_users
-        active_user = [_name, _second_name]
+        active_user = [_name, _second_name, _user_type]
         active_users.append(active_user)
         
         global users
@@ -48,6 +50,10 @@ user_count = 0
 users =  {}
 active_users = []
 admin.user_creator("Admin","123", "Admin","Cristian", "Demkowicz")
+try:
+ users = pickle.load(open("serialized_users.dat", "rb"))
+except:
+	print("No saved data found")
 print(users)
 
 
@@ -74,6 +80,7 @@ print("Hello:"+ _login+"!")
 print(users[_login])
 program_going = True
 while program_going == True:
+
  print("What do you want to do:")
  print("[C]heck other session users?")
  print("[L]ook-up your timetable?")
@@ -90,16 +97,18 @@ while program_going == True:
     os.system("cls")
  elif action == "Cr":
      if "Admin" in users[_login]:
-         input_login = input("Create new login:")
-         input_password = input("Create new password:")
-         input_name = input("Enter user's name:")
-         input_second_name = input("Enter user's second name:")
-         input_user_type = input("Chose the user account type: Doctor, Nurse, Admin")
-         admin.user_creator(input_login,input_password,input_name,input_second_name,input_user_type)
+         input_login = input("Create new login: ")
+         input_password = input("Create new password: ")
+         input_name = input("Enter user's name: ")
+         input_second_name = input("Enter user's second name: ")
+         input_user_type = input("Chose the user account type: Doctor, Nurse, Admin: ")
+         admin.user_creator(input_login,input_password,input_user_type,input_name,input_second_name)
 
 
 
     
  elif action == "E":
+    serial_users = pickle.dump(users, open("serialized_users.dat", "wb"))
     program_going == False
     break
+
