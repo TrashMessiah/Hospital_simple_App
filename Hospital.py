@@ -1,47 +1,47 @@
-
 import os
 import pickle
 
 class user:
-    name = ""
-    second_name = ""
-    id = 0
-    login = ""
-    password = ""
-    user_type = ""
+  name = ""
+  second_name = ""
+  id = 0
+  login = ""
+  password = ""
+  user_type = ""
 
 class nurse(user):
-    working_hours = 0
-    user_type = "nurse"
+  working_hours = 0
+  user_type = "nurse"
 
 
 class doctor(user):
-    whz = 0
-    working_hours = 0
-    user_type = "doctor"
+ spec_level = ""
+ whz = 0
+ working_hours = 0
+ user_type = "doctor"
 
 
 class admin(user):
-    user_type = "admin"
-    def user_creator(_login, _password,_user_type, _name, _second_name):
-        global user_count
-        user_count +=1
-        new_user = user
-        new_user.id = user_count 
-        new_user.login = _login 
-        new_user.name = _name 
-        new_user.password = _password 
-        new_user.second_name = _second_name 
-        new_user.user_type=_user_type
-
-        global active_users
-        active_user = [_name, _second_name, _user_type]
-        active_users.append(active_user)
-        
-        global users
-        users[_login] = _password, _user_type, _name, _second_name
-        print("Current user count:" + str(user_count) + "users")
-        print("User added sucessfully!")
+ user_type = "admin"
+ def user_creator(_login, _password,_user_type, _name, _second_name):
+   global user_count
+   user_count +=1
+   new_user = user
+   new_user.id = user_count 
+   new_user.login = _login 
+   new_user.name = _name 
+   new_user.password = _password 
+   new_user.second_name = _second_name 
+   new_user.user_type=_user_type 
+   if _user_type == "Doctor":
+     doc_spec = input("Please name the doctor's specialization")
+   global active_users
+   active_user = [_name, _second_name, _user_type]
+   active_users.append(active_user)
+   global users
+   users[_login] = _password, _user_type, _name, _second_name
+   print("Current user count:" + str(user_count) + "users")
+   print("User added sucessfully!")
         
          
      
